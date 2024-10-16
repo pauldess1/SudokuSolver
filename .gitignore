@@ -1,1 +1,10 @@
 \venv
+\runs
+\__pycache__
+*.png
+*.jpg
+*.h5
+\model_mnist
+\images
+\Hand_training
+\Hand_training\handwritten_model.keras
