@@ -6,5 +6,5 @@
 *.h5
 \model_mnist
 \images
-\Hand_training
-\Hand_training\handwritten_model.keras
+Hand_training
+Hand_training\handwritten_model.keras
