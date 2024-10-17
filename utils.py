@@ -61,3 +61,20 @@ def accuracy(sudo1, sudo2):
             if sudo1[i][j]!=sudo2[i][j]:
                 nb_error+=1
     return (1-nb_error/81)*100, nb_error
+
+def preprocess(image):
+        imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        imgBlur = cv2.GaussianBlur(imgGray, (5,5), 1)
+        imgThreshold = cv2.adaptiveThreshold(imgBlur, 255, 1, 1, 11, 2)
+        return imgThreshold
+
+def predict(box, classifier, confidence):
+    guess = 0
+    n_box = cv2.resize(box, (28, 28))
+    n_box = preprocess(box)
+    n_box = crop_center(n_box)
+ 
+    pred = classifier.predict(n_box)
+    if pred[1] > confidence :
+        guess = pred[0]
+    return guess
