@@ -7,11 +7,11 @@ A Python project that automatically solves Sudoku grids from images. This projec
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Project Structure](#project-structure)
+- [Future Improvements](#future-improvements)
 
 ## Examples
-<div style="display: flex; justify-content: space-between;"> <img src="visual\Capture.PNG" alt="Input" width="49%" /> <img src="visual\Capture_final.png" alt="Output" width="49%" /> </div>
+<div style="display: flex; justify-content: space-between;"> <img src="visual\Sudoku_Solver.png" alt="Illustration" width="100%" /> </div>
 
 ## Features
 
@@ -43,20 +43,27 @@ https://huggingface.co/farleyknight/mnist-digit-classification-2022-09-04
 
 4. Solve the Sudoku !
     ```bash
-    python run.py --input_image_path visual/Capture.PNG --output_image_path visual/result.png
+    python run.py --input_image_path visual/example.png --output_image_path visual/result.png
 
 ## Project Structure
-### solver.py
+- solver.py
 contains the sudoku solver module, takes a numpy array as input and returns another completed numpy array.
 
-### get_vision.py
+- get_vision.py
 contains the vision module, allowing you to switch from an image to a sudoku as a numpy table and complete the image using the completed sudoku table. 
 
-### utils.py
+- utils.py
 contains functions with a variety of uses
 
-### model.py
+- model.py
 builds the digit detection model based on work of farleyknight on Huggingface
 
-### run.py
+- run.py
 processes all the steps to solve sudoku
+
+## Future Improvements
+
+- Train my own model for digit recognition on MNIST
+- Optimize code for better performance in term of running time
+- Add the option to run the project on real-time with camera
+
