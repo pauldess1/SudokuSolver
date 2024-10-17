@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
-from utils import show, find_biggest_contours, reorder_points, crop_center, accuracy
-from model import MNISTClassifier
-from values import sudoku1, sudoku2
+from utils import show, find_biggest_contours, reorder_points
 
 class ImageCleaner():
     def __init__(self, image_path, height = 450, width= 450):
@@ -50,3 +48,55 @@ class Image2Array():
             for box in cols:
                 boxes.append(box)
         return boxes
+  
+class Array2Image():
+    def __init__(self, array, img_sudoku, predictions):
+        self.array = array
+        self.img_sudoku = img_sudoku
+        self.predictions = predictions
+        self.positions = self.calculate_cell_centers()
+
+    
+    def calculate_cell_centers(self):
+        rows, cols = 9, 9
+        height, width = self.img_sudoku.shape[:2]
+
+        cell_height = height // rows
+        cell_width = width // cols
+
+        centers = [[] for _ in range(rows)]
+
+        for i in range(rows):
+            for j in range(cols):
+                center_x = j * cell_width + cell_width // 2
+                center_y = i * cell_height + cell_height // 2
+                centers[i].append((center_x, center_y))
+
+        return centers
+    
+    def write(self, i, j):
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = 1
+        font_color = (255, 0, 0)  # Red color
+        thickness = 1
+        text = str(self.array[i][j])
+
+        text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
+
+        center_x, center_y = self.positions[i][j]
+
+        text_x = center_x - text_size[0] // 2
+        text_y = center_y + text_size[1] // 2
+        cv2.putText(self.img_sudoku, text, (text_x, text_y), font, font_scale, font_color, thickness)
+    
+    def run(self):
+        for i in range(9):
+            for j in range(9):
+                if self.predictions[i][j]==0:
+                    self.write(i, j)
+
+    def show(self):
+        show(self.img_sudoku)
+
+    def save(self, output_path):
+        cv2.imwrite(output_path, self.img_sudoku)

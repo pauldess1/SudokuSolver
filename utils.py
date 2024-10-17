@@ -35,11 +35,9 @@ def reorder_points(points):
 def crop_center(image):
     height, width = image.shape
 
-    # Calculer les nouvelles dimensions en retirant 2 pixels de chaque côté
-    new_width = width - 8
-    new_height = height - 8
+    new_width = width - 12
+    new_height = height - 12
 
-    # Vérifier si les dimensions ne deviennent pas négatives
     if new_width <= 0 or new_height <= 0:
         raise ValueError("L'image doit être suffisamment grande pour être recadrée.")
 
@@ -53,14 +51,6 @@ def crop_center(image):
     cropped_image = image[y1:y2, x1:x2]
 
     return cropped_image
-
-def accuracy(sudo1, sudo2):
-    nb_error = 0
-    for i in range(9):
-        for j in range(9):
-            if sudo1[i][j]!=sudo2[i][j]:
-                nb_error+=1
-    return (1-nb_error/81)*100, nb_error
 
 def preprocess(image):
         imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
