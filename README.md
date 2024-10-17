@@ -21,9 +21,9 @@ A Python project that automatically solves Sudoku grids from images. This projec
 ## Technologies Used
 
 - Python
-- OpenCV (for image processing)
+- OpenCV, PIL (for image processing)
 - NumPy (for array manipulation)
-- Keras/TensorFlow (for machine learning models, if needed)
+- Transformers, PyTorch
 
 ## Installation
 
